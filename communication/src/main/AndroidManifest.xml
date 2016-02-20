@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="hcq.openwear">
+
+    <uses-sdk android:minSdkVersion="9" />
+</manifest>

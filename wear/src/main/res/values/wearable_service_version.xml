@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- google play service版本号-->
+    <integer name="google_play_services_version">6587000</integer>
+	<!-- duwear连接服务版本号-->
+    <integer name="open_wearable_service_version">1000000</integer>
+	<!-- android wear中国版连接服务版本号-->
+	<integer name="android_wear_china_services_version">7887000</integer>
+</resources>

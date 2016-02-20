@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="cn.openwatch.demo"
+    android:installLocation="preferExternal"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="22" />
+
+    <application
+        android:name="cn.openwatch.demo.DemoApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="cn.openwatch.demo.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- google play service版本号 不要随意修改 -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!-- android wear中国版版本号 不要随意修改 -->
+        <meta-data
+            android:name="com.google.android.wearable.version"
+            android:value="@integer/android_wear_china_services_version" />
+        <!-- duwear service版本号 不要随意修改 -->
+        <meta-data
+            android:name="org.owa.wear.ows.sdk.version"
+            android:value="@integer/open_wearable_service_version" />
+        <!-- 分别针对duwear/ticwear系统 手表端App的描述文件 App更新时需要修改其中的对应参数 -->
+        <!-- 针对针对android wear谷歌版和中国版不需要手动添加手表端App的描述文件，打包的时候，studio会自动添加 -->
+        <!-- 引用同一个wearable_app_desc文件 需要tools:replace="android:resource" 否则打包会报错-->
+        <meta-data
+            android:name="org.owa.wear.app"
+            android:resource="@xml/wearable_app_desc"
+            tools:replace="android:resource" />
+        <meta-data
+            android:name="com.mobvoi.ticwear.app"
+            android:resource="@xml/wearable_app_desc" />
+
+        <!-- 继承自OpenWatchListenerService的子类service 下面service name需要修改成自己的类名 -->
+        <!-- 根据自身业务需求和兼容性需求 可选择性添加不同的intent-filter 其中action name不可修改-->
+        <service android:name="cn.openwatch.demo.ListenerService">
+            <intent-filter>
+
+                <!-- 兼容android wear谷歌版和中国版 -->
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+                <!-- 兼容duwear-->
+                <action android:name="org.owa.wear.ows.BIND_LISTENER" />
+                <!-- 兼容ticwear -->
+                <action android:name="com.mobvoi.android.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

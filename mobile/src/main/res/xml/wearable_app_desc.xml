@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 手表端app的包名 -->
+<wearableApp package="cn.openwatch.demo">
+  <!-- 手表端app的version code-->
+  <versionCode>1</versionCode>
+  <!-- 手表端app的version name-->
+  <versionName>1.0</versionName>
+  <!-- 手表端apk的文件名-->
+  <rawPathResId>wearable_demo</rawPathResId> 
+</wearableApp>

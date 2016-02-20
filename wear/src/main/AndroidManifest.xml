@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.openwatch.demo"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- 表盘权限 如果没有带表盘则不需要声明 -->
+    <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 表盘权限 destory -->
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="22" />
+
+    <uses-feature
+        android:name="android.hardware.type.watch"
+        android:required="true" />
+
+    <application
+        android:name="cn.openwatch.demo.DemoApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="cn.openwatch.demo.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- google play service版本号 不要随意修改 -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!-- android wear中国版版本号 不要随意修改 -->
+        <meta-data
+            android:name="com.google.android.wearable.version"
+            android:value="@integer/android_wear_china_services_version" />
+        <!-- duwear service版本号 不要随意修改 -->
+        <meta-data
+            android:name="org.owa.wear.ows.sdk.version"
+            android:value="@integer/open_wearable_service_version" />
+
+        <!-- 继承自OpenWatchListenerService的子类service 下面service name需要修改成自己的类名 -->
+        <!-- 根据自身业务需求和兼容性需求 可选择性添加不同的intent-filter 其中action name不可修改-->
+        <service android:name="cn.openwatch.demo.ListenerService">
+
+            <intent-filter>
+                <!-- 兼容android wear谷歌版和中国版-->
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+                <!-- 兼容duwear -->
+                <action android:name="org.owa.wear.ows.BIND_LISTENER" />
+                <!-- 兼容ticwear -->
+                <action android:name="com.mobvoi.android.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
+
+        <!-- 表盘组件 如果没有带表盘则不需要声明 -->
+        <service
+            android:name="cn.openwatch.demo.DigitalWatchFace"
+            android:allowEmbedded="true"
+            android:label="@string/digital_watch_face_name"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+
+                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/watch_face" />
+
+            <!-- 表盘预览图 自行替换android:resource 对于圆形设备 预览图会被裁剪成圆形 -->
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview"
+                android:resource="@drawable/ic_launcher" />
+        </service>
+    </application>
+
+</manifest>

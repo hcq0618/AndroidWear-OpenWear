@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">OpenWatchDemo</string>
+    <string name="digital_watch_face_name">OpenWatch-数字表盘</string>
+
+</resources>

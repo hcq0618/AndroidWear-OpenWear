@@ -1,0 +1,104 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/send_data_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="发送基本数据给手表\n当手表未连接 数据不会丢失" />
+
+        <Button
+            android:id="@+id/send_bitmap_data_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="发送图片给手表\n当手表未连接 数据不会丢失" />
+
+        <Button
+            android:id="@+id/send_datamap_data_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="发送键值对给手表\n当手表未连接 数据不会丢失" />
+
+        <Button
+            android:id="@+id/send_stream_data_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="发送数据流/文件给手表\n当手表未连接 数据不会丢失" />
+
+        <Button
+            android:id="@+id/send_msg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="发送临时性基本数据给手表\n当手表未连接 数据会被丢失" />
+
+        <Button
+            android:id="@+id/send_bitmap_msg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="发送临时性图片给手表\n当手表未连接 数据会被丢失" />
+
+        <Button
+            android:id="@+id/send_datamap_msg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="发送临时性键值对给手表\n当手表未连接 数据会被丢失" />
+
+        <Button
+            android:id="@+id/send_stream_msg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="发送临时性数据流/文件给手表\n当手表未连接 数据会被丢失" />
+
+        <Button
+            android:id="@+id/send_bothway"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="发送临时性数据给手表并等待响应\n当手表未连接 数据会被丢失" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="接收的手表发来图片：" />
+
+        <ImageView
+            android:id="@+id/received_bitmap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="其他功能详见手表端Demo" />
+    </LinearLayout>
+
+</ScrollView>

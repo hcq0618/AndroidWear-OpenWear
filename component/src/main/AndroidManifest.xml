@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.openwatch.component">
+
+    <uses-sdk android:minSdkVersion="18" />
+</manifest>
