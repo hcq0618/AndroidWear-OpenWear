@@ -39,14 +39,16 @@
 
 **Wearable端uses-sdk配置**
 
+```xml
     <uses-sdk
         android:minSdkVersion="18"
         android:targetSdkVersion="22" />
-
+```
 
 **Mobile端及Wearable端的平台兼容性配置**
 创建res/values/wearable_service_version.xml文件
 
+```xml
     <?xml version="1.0" encoding="utf-8"?>
     <resources>
 	<!-- google play service版本号-->
@@ -56,19 +58,23 @@
 	<!-- android wear中国版连接服务版本号-->
 	<integer name="android_wear_china_services_version">7887000</integer>
     </resources>
+```
 
 **Mobile端及Wearable端初始化代码**
 
+```java
 	OpenWatchCommunication.init(context);
-
+```
 
 声明所需要兼容的Android Wear谷歌版、Android Wear中国版、DuWear连接服务的版本号（TicWear不需要）
 
 兼容Android Wear谷歌版
 
+```xml
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+```
 
 兼容Android Wear中国版
 
