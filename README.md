@@ -31,10 +31,11 @@
 
 **Mobile端uses-sdk配置**
 
+```xml
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="22" />
-
+```
 
 **Wearable端uses-sdk配置**
 
