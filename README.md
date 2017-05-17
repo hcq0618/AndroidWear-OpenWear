@@ -78,22 +78,27 @@
 
 兼容Android Wear中国版
 
+```xml
 		<meta-data
             android:name="com.google.android.wearable.version"
             android:value="@integer/android_wear_china_services_version" />
+```
 
 兼容Duwear
 
+```xml
         <meta-data
             android:name="org.owa.wear.ows.sdk.version"
             android:value="@integer/open_wearable_service_version" />
-
+```
 
 **可以自定义内部线程池**
 
 例如
 
+```java
     OpenWatchCommunication.setTheadPool(Executors.newCachedThreadPool());
+```
 
 若不设置，则内部默认使用newCachedThreadPool创建的线程池，线程优先级为Process.THREAD_PRIORITY_BACKGROUND的非守护线程。
 
@@ -115,6 +120,7 @@
 
 **1、数据存储和手机与手表间的自动同步，当配对设备未连接，数据并不会被丢失，会在下次连接上配对设备时接收到数据：**
 
+```java
     OpenWatchSender.sendData(context, "/send_data", "hello openwatch", new SendListener() {
     				
     				@Override
@@ -129,7 +135,7 @@
     					//发送失败及失败原因
     				}
     			});
-
+```
 
 **2、数据以消息的形式发送，当配对设备未连接，数据会被丢失，用于发送临时性或时效性数据：**
 
@@ -152,6 +158,7 @@
 
 **3、有时你的需求场景会需要类似网络请求，数据发送为请求/响应交流模型，可以等待配对设备的响应直到超时。当配对设备未连接，数据会被丢失：**
 
+```java
     OpenWatchBothWay.request(this, "/send_bothway", "hello openwatch", new BothWayCallback() {
     
     				@Override
@@ -166,22 +173,27 @@
     					//数据请求错误及原因
     				}
     			});
+```
 
 配对设备接收到对应的请求并响应，同时传入接收到的path
 
+```java
     if (path.equals("/send_bothway")) {
     	OpenWatchBothWay.response(this, path, "response bothway");
     }
-
+```
 
 可设置数据发送的超时时间（默认10秒）：
 
+```java
     OpenWatchSender.setTimeOutMills(15000);
+```
 
 可设置请求响应的超时时间（默认10秒）：
 
+```java
     OpenWatchBothWay.setTimeOutMills(15000);
-
+```
 
 
 ## 数据接收与监听 ##
@@ -192,6 +204,7 @@
 
 **1、设置Listener，一般用于activity中，可根据应用具体业务和功能需求，添加不同层面的监听，并在监听的回调函数中接收到配对设备发送的数据：**
 
+```java
     	// 添加设备连接的监听
 		OpenWatchRegister.addConnectListener(this);
 		// 添加接收数据的监听
@@ -199,19 +212,23 @@
 		OpenWatchRegister.addMessageListener(this);
 		// 添加接收图片、map等特殊类型数据的监听
 		OpenWatchRegister.addSpecialTypeListener(this);
+```
 
 取消监听
 
+```java
 		OpenWatchRegister.removeDataListener(this);
 		OpenWatchRegister.removeConnectListener(this);
 		OpenWatchRegister.removeMessageListener(this);
 		OpenWatchRegister.removeSpecialTypeListener(this);
+```
 
 **2、设置监听服务：**
 
 在配置文件注册监听服务
 根据应用想要兼容的智能手表系统，可选择性配置不同的action，action name不可修改
 
+```xml
     <!-- 继承自OpenWatchListenerService的子类service 下面service name需要修改成自己的类名 -->
         <!-- 根据自身业务需求和兼容性需求 可选择性添加不同的intent-filter 其中action name不可修改-->
 
@@ -226,10 +243,11 @@
                 <action android:name="com.mobvoi.android.wearable.BIND_LISTENER" />
             </intent-filter>
         </service>
-
+```
 
 继承OpenWatchListenerService，内部会管理OpenWatchListenerService的生命周期，当有数据接收到时会启动service，当不需要再工作时销毁service，无需手动管理。
 
+```java
     public class ListenerService extends OpenWatchListenerService {
 
 	@Override
@@ -307,6 +325,7 @@
 				Toast.LENGTH_SHORT).show();
 	}
     }
+```
 
 ## 手表端独立网络请求 ##
 
@@ -314,6 +333,7 @@
 
 大部分智能手表不可以独立联网，OpenWatch提供了在手表端应用中，可独立发起网络请求的方式，支持get和post请求。
 
+```java
     OpenWatchHttp http = new OpenWatchHttp(context);
     http.get("http://www.baidu.com", new HttpCallback() {
     
@@ -360,12 +380,13 @@
 
 			}
 		});
+```
 
 ##  创建自定义表盘  ##
 
 OpenWatch提供自定义View或者布局文件的方式创建表盘，并提供时间变化与时区变化回调等（详见Demo）。
 
-
+```java
     public class DigitalWatchFace extends OpenWatchFace {
     
     	private TextView timeTextView, dateTextView;
@@ -406,10 +427,11 @@ OpenWatch提供自定义View或者布局文件的方式创建表盘，并提供�
 
     
     }
-
+```
 
 改变表盘上的日期和时间显示
 
+```java
         @Override
     	protected void onWatchFaceDraw(Canvas canvas, Rect bounds) {
     		// TODO Auto-generated method stub
@@ -432,9 +454,11 @@ OpenWatch提供自定义View或者布局文件的方式创建表盘，并提供�
     
     		timeTextView.setText(timeStr);
     	}
+```
 
 可设置秒针及相关样式，可设置长宽、纯色指针、图片指针等。
 
+```java
     @Override
 	public View onCreateView() {
 		// TODO Auto-generated method stub
@@ -455,14 +479,18 @@ OpenWatch提供自定义View或者布局文件的方式创建表盘，并提供�
 		//设置表盘样式 创建布局等 此处略
 		......
     }
+```
 
 可设置onTimeUpdate函数的回调频率模式
 
+```java
 	//这里设置的模式 表现为交互模式下每秒回调一次 省电模式下每分钟回调一次
     setTimeUpdateMode(TIME_UPDATE_PER_SECOND_MODE);
+```
 
 可设置表盘样式
 
+```java
     @Override
 	public View onCreateView() {
 		// TODO Auto-generated method stub
@@ -480,19 +508,25 @@ OpenWatch提供自定义View或者布局文件的方式创建表盘，并提供�
 		//创建布局等 此处略
 		......
     }
+```
 
 声明权限
 
+```xml
     <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+```
 
 在工程中创建res/xml目录，并创建watch_face.xml文件，文件内容为
 
+```xml
     <?xml version="1.0" encoding="utf-8"?>
     <wallpaper xmlns:android="http://schemas.android.com/apk/res/android" />
+```
 
 注册表盘Service，注意要替换name为自定义类，其中label属性为表盘名称。
 
+```xml
     <service
     android:name="cn.openwatch.wearable.demo.DigitalWatchFace"
     android:allowEmbedded="true"
@@ -513,6 +547,7 @@ OpenWatch提供自定义View或者布局文件的方式创建表盘，并提供�
     android:name="com.google.android.wearable.watchface.preview"
     android:resource="@drawable/ic_launcher" />
     </service>
+```
 
 若应用想构建多个表盘 则可以自定义多个OpenWatchFace子类，并分别注册多个表盘Service。
 
@@ -543,12 +578,13 @@ Android Studio或Gradle打包
 
 创建一个res/xml/wearable_app_desc.xml文件，里面包含Android Wear应用的版本和路径信息。例如：
 
-
+```xml
     <wearableApp package="wearable.app.package.name">
       <versionCode>1</versionCode>
       <versionName>1.0</versionName>
       <rawPathResId>android_wear_micro_apk</rawPathResId> 
     </wearableApp>
+```
 
 package, versionCode, 和versionName的值要和手表端应用的AndroidManifest.xml文件中的一样，rawPathResId的值不要改变。
 
@@ -563,18 +599,21 @@ package, versionCode, 和versionName的值要和手表端应用的AndroidManifes
 
 兼容DuWear
 
+```xml
     <!-- 引用同一个wearable_app_desc文件 需要添加tools:replace="android:resource" 否则打包会报错-->
     <meta-data
             android:name="org.owa.wear.app"
             android:resource="@xml/wearable_app_desc"
             tools:replace="android:resource" />
+```
 
 兼容TicWear
 
+```xml
      <meta-data
             android:name="com.mobvoi.ticwear.app"
             android:resource="@xml/wearable_app_desc" />
-
+```
 
 **用Eclipse或其他IDE打包**
 
@@ -588,21 +627,26 @@ package, versionCode, 和versionName的值要和手表端应用的AndroidManifes
 
 兼容Android Wear谷歌版及中国版
 
+```xml
     <meta-data android:name="com.google.android.wearable.beta.app"
      android:resource="@xml/wearable_app_desc"/>
+```
 
 兼容DuWear
 
+```xml
     <meta-data
             android:name="org.owa.wear.app"
             android:resource="@xml/wearable_app_desc" />
+```
 
 兼容TicWear
 
+```xml
      <meta-data
             android:name="com.mobvoi.ticwear.app"
             android:resource="@xml/wearable_app_desc" />
-
+```
 
 
 ##其他##
